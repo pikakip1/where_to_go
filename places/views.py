@@ -1,40 +1,34 @@
 from django.shortcuts import render
+from places.models import Place, PlaceImg
 
 
-def places_info():
-    return {"type": "FeatureCollection",
-            "features": [
-              {
-                "type": "Feature",
-                "geometry": {
-                  "type": "Point",
-                  "coordinates": [37.62, 55.793676]
+def serialized_info(places):
+    cards_places = {
+        'type': 'FeatureCollection',
+        'features': []
+    }
+
+    for place in places:
+        post = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [place.lng_coordinates, place.lat_coordinates,]
                 },
-                "properties": {
-                  "title": "«Легенды Москвы",
-                  "placeId": "moscow_legends",
-                  "detailsUrl": "static/places/moscow_legends.json"
+                'properties': {
+                    'title': place.title,
+                    'placeId': place.place_id,
+                    'detailsUrl': f'static/places/{place.place_id}.json'
                 }
-              },
-              {
-                "type": "Feature",
-                "geometry": {
-                  "type": "Point",
-                  "coordinates": [37.64, 55.753676]
-                },
-                "properties": {
-                  "title": "Крыши24.рф",
-                  "placeId": "roofs24",
-                  "detailsUrl": "static/places/roofs24.json"
-                }
-              }
-            ]
-          }
+            }
+
+        cards_places['features'].append(post)
+    return cards_places
 
 
 def index(request):
     context = {
-        'places': places_info()
+        'places': serialized_info(Place.objects.all())
     }
 
     return render(request, 'index.html', context)

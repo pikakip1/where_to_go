@@ -10,3 +10,11 @@ class Place(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class PlaceImg(models.Model):
+    location_name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='place_img', verbose_name='Фото места', blank=True)
+
+    def __str__(self):
+        return self.location_name

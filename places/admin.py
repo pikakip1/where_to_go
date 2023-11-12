@@ -9,4 +9,4 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(PlaceImg)
 class PlaceImgAdmin(admin.ModelAdmin):
-    list_display = ['location_name']
+    list_display = ['location_name', 'id']

@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+from environs import Env
+env = Env()
+env.read_env('sensitive_data.env')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-167as#zsib)t!9dq1#h%*ttxv&)n0_l@r%mhhrv82ssv&-n6!h'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -126,6 +129,9 @@ LOAD_ROOT = BASE_DIR / 'load_places/'
 MEDIA_URL = 'media/'
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / '/static/'
+
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'places',
     'adminsortable2',
-    'tinymce'
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOAD_ROOT = BASE_DIR / 'load_places/'
 
 MEDIA_URL = 'media/'
 
